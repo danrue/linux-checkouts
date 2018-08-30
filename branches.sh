@@ -1,0 +1,22 @@
+test -d mainline || git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git mainline
+(cd mainline && git remote get-url hikey || git remote add hikey https://git.linaro.org/lkft/arm64-stable-rc.git)
+(cd mainline && git remote get-url next || git remote add next git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git)
+(cd mainline && git remote get-url stable || git remote add stable git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git)
+(cd mainline && git remote get-url stable-rc || git remote add stable-rc git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git)
+
+(cd mainline && git fetch --all --tags)
+(cd mainline && git worktree add -b next ../next next/master)
+(cd mainline && git worktree add -b 4.18 ../4.18 stable/linux-4.18.y)
+(cd mainline && git worktree add -b 4.14 ../4.14 stable/linux-4.14.y)
+(cd mainline && git worktree add -b 4.9 ../4.9 stable/linux-4.9.y)
+(cd mainline && git worktree add -b 4.4 ../4.4 stable/linux-4.4.y)
+(cd mainline && git worktree add -b 4.18-rc ../4.18-rc stable-rc/linux-4.18.y)
+(cd mainline && git worktree add -b 4.14-rc ../4.14-rc stable-rc/linux-4.14.y)
+(cd mainline && git worktree add -b 4.9-rc ../4.9-rc stable-rc/linux-4.9.y)
+(cd mainline && git worktree add -b 4.4-rc ../4.4-rc stable-rc/linux-4.4.y)
+(cd mainline && git worktree add -b hikey-4.4-rc ../hikey-4.4-rc hikey/4.4.y-rc-hikey)
+#(cd mainline && git worktree add -b hikey-4.4-sumit ../hikey-4.4-sumit sumit-linux-lts/lts-4.4.y-hikey)
+
+#(cd mainline && git worktree add -b 4.16-bug-3775 ../4.16-bug-3775 stable/linux-4.16.y)
+#(cd mainline && git worktree add -b mainline-bug-3656 ../mainline-bug-3656 origin/master)
+#(cd mainline && git worktree add -b mainline-bug-3612 ../mainline-bug-3612 origin/master)
